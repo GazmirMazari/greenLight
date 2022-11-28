@@ -14,8 +14,8 @@ func (app *application) routes() http.Handler {
 	//endpoint.using the handlerfunc() method.
 
 	router.HandlerFunc(http.MethodGet, "/v1/healthcheck", app.healthCheckHandler)
-	router.HandlerFunc(http.MethodPost, "/v1/snippets", app.createMovieHandler)
-	router.HandlerFunc(http.MethodGet, "/v1/snippets/:id", app.showMovieHandler)
+	router.HandlerFunc(http.MethodPost, "/v1/movies", app.createMovieHandler)
+	router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.showMovieHandler)
 
 	return router
 }

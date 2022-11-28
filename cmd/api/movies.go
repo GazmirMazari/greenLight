@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
+
+	"greenlight.gazmir.mazari.com/internal/data"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -27,5 +30,18 @@ func (app *application) showMovieHandler(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	fmt.Fprintln(w, "Show the details of movie %d", id)
+	Movie := data.Movie{
+		ID:        id,
+		Title:     "Casablanca",
+		Runtime:   102,
+		Genres:    []string{"Drama", "Romance", "War"},
+		Version:   1,
+		CreatedAt: time.Now(),
+	}
+
+	err = app.writeJSON(w, http.StatusOK, Movie, nil)
+	if err != nil {
+		app.logger.Print(err)
+		http.Error(w, "The server encountered a problem and could not process your request", http.StatusInternalServerError)
+	}
 }
